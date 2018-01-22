@@ -128,6 +128,8 @@ Node referente a Nota Fiscal referenciada de produtor rural
 $std = new stdClass();
 $std->cUF = 35;
 $std->AAMM = 1502;
+$std->CNPJ;
+$std->CPF;
 $std->IE = 'ISENTO';
 $std->mod = '04';
 $std->serie = 0;
@@ -326,7 +328,7 @@ $std->cEAN;
 $std->xProd;
 $std->NCM;
 
-$std->cBenf; //incluido no layout 4.00
+$std->cBenef; //incluido no layout 4.00
 
 $std->EXTIPI;
 $std->CFOP;
@@ -444,8 +446,8 @@ $std = new stdClass();
 $std->item = 1; //item da NFe
 $std->nDI; //numero da DI
 $std->nAdicao;
-$std->nSeqAdic
-$std->cFabricante
+$std->nSeqAdic;
+$std->cFabricante;
 $std->vDescDI;
 $std->nDraw;
 
@@ -461,6 +463,7 @@ Node com informações de exportação para o item
 ```php
 $std = new stdClass();
 $std->item = 1; //item da NFe
+$std->nDE; // Indicativo de numero da DetExport
 $std->nRE;
 $std->chNFe;
 $std->qExport;
@@ -478,6 +481,7 @@ Node com Grupo sobre exportação indireta
 ```php
 $std = new stdClass();
 $std->item = 1; //item da NFe
+$std->nDE; // Indicativo de numero da DetExport
 $std->nRE = '123456789012';
 $std->chNFe = '53170924915365000295550550000001951000001952';
 $std->qExport = 1234.123;
@@ -572,6 +576,7 @@ Node com informações e detalhamento de Armamento do item da NFe
 ```php
 $std = new stdClass();
 $std->item = 1; //item da NFe
+$std->nAR; //Indicativo de numero da arma
 $std->tpArma;
 $std->nSerie;
 $std->nCano;
@@ -603,8 +608,8 @@ $std->CODIF;
 $std->qTemp;
 $std->UFCons;
 $std->qBCProd;
-$std->vAliqProd
-$std->vCIDE
+$std->vAliqProd;
+$std->vCIDE;
 
 $elem = $nfe->tagcomb($std);
 ```
@@ -882,7 +887,7 @@ Node COFINS do item da NFe
 ```php
 $std = new stdClass();
 $std->item = 1; //item da NFe
-$std->CST = '07'
+$std->CST = '07';
 $std->vBC = null;
 $std->pCOFINS = null;
 $std->vCOFINS = null;
@@ -922,8 +927,8 @@ $std->item = 1; //item da NFe
 $std->vBC = 1000.00;
 $std->vAliq = 5.00;
 $std->vISSQN = 50.00;
-$std->cMunFG = '3518800'
-$std->cListServ = '12.23'
+$std->cMunFG = '3518800';
+$std->cListServ = '12.23';
 $std->vDeducao = null;
 $std->vOutro = null;
 $std->vDescIncond = null;
@@ -949,6 +954,7 @@ Node referente a informação do Imposto devolvido
 | $std | stcClass | contêm os dados dos campos, nomeados conforme manual |
 ```php
 $std = new stdClass();
+$std->item = 1; //item da NFe
 $std->pDevol = 2.00;
 $std->vIPIDevol = 123.36;
 
@@ -967,7 +973,7 @@ Node dos totais referentes ao ICMS
 $std = new stdClass();
 $std->vBC = 1000.00;
 $std->vICMS = 1000.00;
-$std->vICMSDesonv = 1000.00;
+$std->vICMSDeson = 1000.00;
 $std->vFCP = 1000.00; //incluso no layout 4.00
 $std->vBCST = 1000.00;
 $std->vST = 1000.00;
@@ -1065,7 +1071,7 @@ Node com os dados da tranportadora
 $std = new stdClass();
 $std->xNome = 'Rodo Fulano';
 $std->IE = '12345678901';
-$std->xEnder = 'Rua Um, sem numero'
+$std->xEnder = 'Rua Um, sem numero';
 $std->xMun = 'Cotia';
 $std->UF = 'SP';
 $std->CNPJ = '12345678901234';//só pode haver um ou CNPJ ou CPF, se um deles é especificado o outro deverá ser null
@@ -1082,11 +1088,11 @@ Node referente a retenção de ICMS do serviço de transporte
 | $std | stcClass | contêm os dados dos campos, nomeados conforme manual |
 ```php
 $std = new stdClass();
-$std->vServ = 240.00
+$std->vServ = 240.00;
 $std->vBCRet = 240.00;
 $std->pICMSRet = 1.00;
 $std->vICMSRet = 2.40;
-$std->CFOP = '5353'
+$std->CFOP = '5353';
 $std->cMunFG = '3518800';
 
 $elem = $nfe->tagveicTransp($std);
@@ -1100,9 +1106,9 @@ Node para informação do veículo trator
 | $std | stcClass | contêm os dados dos campos, nomeados conforme manual |
 ```php
 $std = new stdClass();
-$std->placa = 'ABC1111'
-$std->UF = 'RJ'
-$std->RNTC = '999999'
+$std->placa = 'ABC1111';
+$std->UF = 'RJ';
+$std->RNTC = '999999';
 
 $elem = $nfe->tagveicTransp($std);
 ```
@@ -1115,9 +1121,9 @@ Node para informar os reboques/Dolly
 | $std | stcClass | contêm os dados dos campos, nomeados conforme manual |
 ```php
 $std = new stdClass();
-$std->placa = 'BCB0897'
-$std->UF = 'SP'
-$std->RNTC = '123456'
+$std->placa = 'BCB0897';
+$std->UF = 'SP';
+$std->RNTC = '123456';
 $std->vagao = null;
 $std->balsa = null;
 
@@ -1194,15 +1200,17 @@ e também **obrigatório para NFe (modelo 55)** a partir do layout 4.00
 | Parametro | Tipo | Descrição |
 | :--- | :---: | :--- |
 | $std | stcClass | contêm os dados dos campos, nomeados conforme manual |
+
+
 ```php
 $std = new stdClass();
-$std->vTroco = null; //incluso no layout 4.00
+$std->vTroco = null; //incluso no layout 4.00, obrigatório informar para NFCe (65)
 
 $elem = $nfe->tagpag($std);
 ```
 
 ### function tagdetPag($std):DOMElement
-Node com o detalhamento da forma de pagamento **OBRIGATÓRIO para NFCe**
+Node com o detalhamento da forma de pagamento **OBRIGATÓRIO para NFCe**, e **não deve ser usado para NFe (55)**
 
 | Parametro | Tipo | Descrição |
 | :--- | :---: | :--- |
@@ -1210,12 +1218,11 @@ Node com o detalhamento da forma de pagamento **OBRIGATÓRIO para NFCe**
 ```php
 $std = new stdClass();
 $std->tPag = '03';
-$std->vPag = 200.00
+$std->vPag = 200.00; //Obs: deve ser informado o valor pago pelo cliente
 $std->CNPJ = '12345678901234';
 $std->tBand = '01';
 $std->cAut = '3333333';
-
-$std->tpIntegra = 1; //incluso no layout 4.00
+$std->tpIntegra = 1; //incluso na NT 2015/002
 
 $elem = $nfe->tagdetPag($std);
 ```
@@ -1402,7 +1409,7 @@ $xml = $nfe->getXML();
 Este método retorna o numero da chave da NFe
 
 ```php
-$chave = $nfe->geChave();
+$chave = $nfe->getChave();
 ```
 
 ### function getModelo():int
